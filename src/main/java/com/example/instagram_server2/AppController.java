@@ -8,7 +8,7 @@ public class AppController {
 
     @GetMapping("/")
     public String index() {
-        return "Hellow, world!";
+        return "FUCK, world!";
     }
 
 }
