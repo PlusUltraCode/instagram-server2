@@ -26,16 +26,14 @@ public class AppController {
         }
     }
 
-    @GetMapping("/redis")
-    public String checkRedisConnection() {
-        // Redis 연결 확인
-        try {
-            // Redis에 간단한 값을 저장하고 읽어오기
-            redisTemplate.opsForValue().set("testKey", "Hello, Redis!");
-            String redisValue = redisTemplate.opsForValue().get("testKey");
 
-            // Redis에 접근이 성공하면 값을 읽어온 후, 연결 성공 메시지 반환
-            if ("Hello, Redis!".equals(redisValue)) {
+
+    @GetMapping("/check-redis")
+    public String checkRedisConnection() {
+        try {
+            // Redis에 간단한 PING 명령 실행하여 연결 확인
+            String response = redisTemplate.getConnectionFactory().getConnection().ping();
+            if ("PONG".equals(response)) {
                 return "Successfully connected to Redis!";
             } else {
                 return "Failed to connect to Redis!";
