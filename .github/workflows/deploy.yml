@@ -54,6 +54,7 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script_stop: true
           script: |
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 430118833376.dkr.ecr.ap-northeast-2.amazonaws.com
             docker stop instagram-server2 || true
             docker rm instagram-server2 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/instagram-server2:latest
